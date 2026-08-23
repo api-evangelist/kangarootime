@@ -1,0 +1,150 @@
+generated: '2026-08-23'
+method: searched
+source: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+note: >-
+  Assessed against the cross-cutting standards this pipeline checks and against the
+  `education` regulatory regime's standards list in scoring.yml (scim, lti, oneroster,
+  ed-fi, caliper, qti, oai-pmh, shibboleth, saml, orcid, datacite, crossref). Every
+  conformance below is recorded as observed or NOT observed from Kangarootime's own
+  public surface. Nothing is asserted on the strength of a marketing claim, and no
+  conformance is invented to fill a slot - domain-standard conformance is reward-only,
+  so an honest miss costs the provider nothing.
+standards:
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document at any Kangarootime host. Probed /openapi.json,
+    /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /redoc across
+    kangarootime.com, k2, status, changelog, educator, insights - every 200 was an
+    SPA catch-all returning identical bytes for a known-bad control path.
+- id: graphql
+  conforms: false
+  evidence: /graphql returns the SPA shell or 404 on every host; no introspection surface.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface published; help-centre search for "webhook" returns 0 articles.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No public OAuth authorization server. /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource miss on every host. Application sign-in for
+    my.kangarootime.com federates to Microsoft Entra ID and educator.kangarootime.com
+    uses Clerk, but both are end-user login for the app, not an API authorization
+    surface a third party can register a client against.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 or an SPA shell on every Kangarootime host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No API, therefore no error envelope.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt absent on every host (see well-known/kangarootime-well-known.yml).
+- id: rfc8615-well-known
+  conforms: false
+  evidence: No /.well-known document is served on any host; all 200s are SPA catch-alls.
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json miss on every host.
+- id: mcp
+  conforms: false
+  evidence: No hosted MCP server found in docs, registries or on any Kangarootime host.
+- id: scim
+  conforms: false
+  evidence: >-
+    No SCIM schema URN, no /scim/v2 path, no user-provisioning surface documented. This
+    is the education-regime standard Kangarootime is closest to needing - it manages
+    staff and family identities across multi-site franchises - and it implements none of it.
+- id: lti
+  conforms: false
+  evidence: >-
+    No LTI launch, tool configuration or platform registration documented, including for
+    the Training by Kangarootime / educator LMS product.
+- id: oneroster
+  conforms: false
+  evidence: >-
+    No OneRoster CSV or REST surface. Rostering data (dim_student, dim_class,
+    fct_enrollment) is exported only through the proprietary Data Feed schema.
+- id: ed-fi
+  conforms: false
+  evidence: No Ed-Fi data standard alignment, ODS/API, or Ed-Fi descriptors in the published schema.
+- id: caliper
+  conforms: false
+  evidence: No Caliper analytics events; the feed carries no event/activity fact table at all.
+- id: qti
+  conforms: false
+  evidence: Not applicable to the product; no assessment item interchange.
+- id: oai-pmh
+  conforms: false
+  evidence: Not applicable to the product; no repository harvesting surface.
+- id: saml
+  conforms: false
+  evidence: >-
+    No SAML metadata endpoint published. my.kangarootime.com redirects to a Microsoft
+    Entra ID OAuth2/OIDC authorize endpoint (tenant 4f3ac0ce-f7c2-4e63-a31c-416ae4d7bf11),
+    which is Kangarootime's own corporate identity provider for that host, not a
+    customer-facing SSO contract.
+- id: shibboleth
+  conforms: false
+  evidence: Not observed.
+- id: orcid
+  conforms: false
+  evidence: Not applicable to the product.
+- id: datacite
+  conforms: false
+  evidence: Not applicable to the product.
+- id: crossref
+  conforms: false
+  evidence: Not applicable to the product.
+- id: apache-parquet
+  conforms: true
+  evidence: >-
+    Data Feeds emits Apache Parquet as a first-class output format with configurable
+    codec (Snappy/Gzip/LZ4/Zstd/Brotli), Zstd compression level 1-22 and Parquet
+    version V1/V2, per the Data Feed User Guide. This is a real, open, machine-readable
+    interchange format - the strongest standards signal Kangarootime publishes.
+- id: ndjson
+  conforms: true
+  evidence: >-
+    Data Feeds emits newline-delimited JSON when "Output as Array" is disabled (the
+    default), and a single JSON array when enabled. Documented with examples in the guide.
+- id: csv
+  conforms: true
+  evidence: >-
+    Data Feeds emits RFC-4180-shaped CSV with configurable delimiter, quote character,
+    escape character and header row.
+domain_standard:
+  declared: false
+  candidates_checked: [scim, lti, oneroster, ed-fi, caliper, qti, oai-pmh, shibboleth, saml]
+  finding: >-
+    Kangarootime's market - early-childhood education and childcare management - has
+    real interchange standards (OneRoster and Ed-Fi for rostering/enrollment, SCIM for
+    identity) and Kangarootime declares none of them in any published contract. Its
+    only standards-shaped commitment is at the file-format layer: Parquet, NDJSON and
+    CSV. A buyer who already speaks OneRoster or Ed-Fi gets no shortcut here and needs
+    a bespoke connector built against the proprietary 63-table feed schema.
+  note: >-
+    Reward-only dimension. Recorded as not-declared, not as a failure. The one
+    domain-specific interchange Kangarootime DOES perform is with KinderConnect, the
+    state child-care subsidy attendance system - but that is a partner-built inbound
+    integration configured in-app, with no published contract, so it cannot be scored
+    as a declared standard.
+compliance_program:
+  published: false
+  evidence: >-
+    kangarootime.com/security -> 404, kangarootime.com/trust -> 404. No trust centre,
+    no SOC 2 / ISO 27001 / PCI DSS / HIPAA / FedRAMP certification claim found on any
+    public page. probe-security-programs.py returned vdp=none trust=none. No
+    `Compliance` or `TrustCenter` pointer is therefore wired in apis.yml.
+  note: >-
+    Notable given the product processes childrens records and card payments. Payment
+    processing is delegated: payrix.kangarootime.com (HTTP 200) serves Worldpay
+    content, and a test-payrixapi.kangarootime.com host appears in certificate
+    transparency logs, so card-data PCI obligations largely sit with Worldpay/Payrix
+    rather than with Kangarootime. Kangarootime still publishes no statement of its
+    own security or compliance posture.
+x-evidence:
+  fetched: '2026-08-23'
+  security_page_http_status: 404
+  trust_page_http_status: 404
+  well_known_hits: 0

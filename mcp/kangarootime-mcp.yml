@@ -1,0 +1,33 @@
+generated: '2026-08-23'
+method: searched
+source: docs, registry and live-host search, 2026-08-23
+status: none
+note: >-
+  No MCP server exists and none can be derived. Kangarootime publishes no OpenAPI, so
+  there are no operations to project into candidate tools; deriving a tool list here
+  would mean inventing the operations first. tools[] is therefore empty by necessity,
+  not by omission. No `MCPServer` or `ToolCrosswalk` pointer is wired in apis.yml.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+server: null
+tools: []
+searched:
+- {surface: 'npm registry (query "kangarootime")', results: 0}
+- {surface: 'help centre search (query "api")', results: 2, note: 'both are inbound partner integration articles - Intellikid Systems and Kisi 2.0 Configuration'}
+- {surface: 'help centre search (query "webhook")', results: 0}
+- {surface: 'kangarootime.com sitemap (311 URLs)', results: 0, note: 'no developer, API or MCP page'}
+- {surface: 'live host probes for /mcp, /sse and .well-known OAuth metadata', results: 0}
+crosswalk:
+  emitted: false
+  reason: >-
+    A tool crosswalk requires an MCP tool list or GraphQL schema to bind to OpenAPI
+    operations. Kangarootime has none of the three.
+x-evidence:
+  fetched: '2026-08-23'
+  hosted_servers_found: 0
+  openapi_operations_available_to_derive_from: 0

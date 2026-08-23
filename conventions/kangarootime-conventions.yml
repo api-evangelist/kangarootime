@@ -1,0 +1,172 @@
+generated: '2026-08-23'
+method: searched
+source: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+note: >-
+  Kangarootime publishes no request/response API, so the usual cross-cutting API
+  semantics (auth style, pagination, expansion, request-id tracing, error envelope,
+  rate-limit signalling) do not exist and are recorded as `na` rather than left blank.
+  What DOES have a documented runtime contract is Data Feeds - the scheduled bulk
+  export - and that contract is captured in full below. Everything here is read from
+  the vendor's own user guide.
+surface_type: scheduled-bulk-export
+surface_note: >-
+  Kangarootime pushes files OUT to storage the customer owns. There is no inbound
+  endpoint, no request, and no response. An integrator writes a bucket policy, not a
+  client.
+authentication:
+  style: na
+  note: >-
+    Inverted from a normal API. Kangarootime does not issue the customer a credential;
+    the CUSTOMER supplies Kangarootime with write credentials to their own cloud
+    storage, entered in the app under Business > Integrations > Data Feeds. Supported
+    credential shapes, per the guide - AWS - IAM access key ID + secret, requiring
+    s3:ListBucket and s3:PutObject on the bucket. Azure - either a storage account
+    connection string or an Entra service principal (client ID, client secret,
+    tenant ID). GCS - either a service-account JSON key with the Storage Object User
+    role, or S3-compatible HMAC access key + secret. All are long-lived shared secrets;
+    the guide documents no rotation policy, no expiry and no scoped/short-lived
+    alternative.
+delivery:
+  direction: outbound-push
+  cadence: daily
+  destinations:
+  - type: aws-s3
+    required_fields: [bucket_name, region, access_key_id, secret_access_key]
+    optional_fields: [path]
+    iam_actions: [s3:ListBucket, s3:PutObject]
+  - type: azure-blob-storage
+    required_fields: [container_name]
+    conditional_fields: [account_name]
+    auth_options: [connection-string, service-principal]
+    protocols: [az, azure, abfss]
+    optional_fields: [path]
+  - type: google-cloud-storage
+    required_fields: [bucket_name]
+    auth_options: [service-account-json-key, hmac]
+    required_role: Storage Object User
+    optional_fields: [path]
+  enablement: >-
+    An "Enabled" toggle must be ON for data to send; a "Test Connection" action
+    validates the destination configuration before the first run.
+  observability: >-
+    Each Data Feed record exposes a Details view and an Error Log inside the app.
+    There is no external delivery webhook, callback or notification surface.
+pathing:
+  optional: true
+  default_behaviour: >-
+    If Path is blank, files land in the root of the bucket/container AND ARE
+    OVERWRITTEN EACH DAY. History is only retained if the customer templates a
+    date into the path - the default configuration is destructive.
+  placeholders: ['{year}', '{month}', '{day}', '{hour}', '{minute}', '{second}', '{date}']
+  format_spec: >-
+    Placeholders accept Python-style format specifications as {placeholder: format},
+    e.g. {month:02d} -> 01, {date:%Y-%m-%d} -> 2026-01-14, {date:%Y%m%d} -> 20260114.
+  examples:
+  - template: 'feeds/{year}-{month:02d}-{day:02d}'
+    result: feeds/2026-01-14
+  - template: 'exports/{year}/{month:02d}'
+    result: exports/2026/01
+  - template: 'data/{date:%Y/%m/%d/%H}'
+    result: data/2026/01/14/15
+output_formats:
+- format: csv
+  options:
+    include_header_row: {default: true}
+    delimiter: {default: ','}
+    quote_character: {default: '"'}
+    escape_character: {default: '\'}
+    compression: {default: none, allowed: [None, Gzip, Zstd]}
+- format: json
+  options:
+    output_as_array: {default: false, note: 'false yields newline-delimited JSON (NDJSON); true yields a single JSON array'}
+    compression: {default: none, allowed: [None, Gzip, Zstd]}
+- format: parquet
+  options:
+    compression: {default: none, allowed: [Snappy, Gzip, LZ4, Zstd, Brotli, None]}
+    compression_level: {default: 3, range: 1-22, applies_to: Zstd}
+    parquet_version: {default: Default, allowed: [V1, V2]}
+- format: xlsx
+  options: {}
+  caveat: >-
+    Vendor warns XLSX has row limitations for large datasets and recommends CSV or
+    Parquet instead.
+pagination: {supported: na, note: 'Not applicable - full-table file export, not a query surface.'}
+field_expansion: {supported: na}
+sparse_fields:
+  supported: na
+  note: >-
+    Table selection is not documented as configurable; the guide describes the feed
+    at the level of destination, path and format only.
+metadata: {supported: na}
+request_tracing: {supported: na, note: 'No request-id header, because there is no request.'}
+versioning:
+  api: na
+  schema: >-
+    The published schema reference is versioned by build timestamp in its URL path
+    (/20260814013516/). Kangarootime publishes no schema changelog, no deprecation
+    notice for removed columns and no compatibility promise, so a downstream warehouse
+    cannot be told in advance that a column is going away.
+error_envelope:
+  supported: na
+  note: >-
+    Delivery failures surface in the in-app Error Log for the Data Feed record. No
+    documented error codes, no machine-readable error format, no external alerting.
+rate_limiting: {supported: na, signalling: none, note: 'Export cadence is fixed daily; see rate-limits/kangarootime-rate-limits.yml.'}
+idempotency:
+  supported: na
+  note: >-
+    No idempotency contract exists because there is no write API. The nearest
+    equivalent is the export overwrite semantic - with a blank path the daily file
+    replaces the previous one at the same key, which is idempotent per day by
+    construction and destructive across days. NOTE - no `Idempotency` pointer is
+    wired in apis.yml, deliberately - Kangarootime supports no idempotency key.
+dry_run_mode:
+  supported: partial
+  mechanism: Test Connection
+  note: >-
+    "Test Connection" validates the destination configuration without waiting for the
+    scheduled run. It rehearses connectivity/credentials, not the data payload.
+reversibility:
+  applicable: partial
+  grade: na
+  summary: >-
+    Kangarootime exposes no public write API, so there is no operation for an agent or
+    integrator to take back - reversibility, dry_run_mode and idempotency are `na` for
+    the API surface that does not exist. The one action an integrator DOES take,
+    configuring a Data Feed, has a real and undocumented irreversibility that is worth
+    stating plainly rather than scoring as absent.
+  surfaces:
+  - action: Data Feed daily export to customer bucket
+    reversal_operation: null
+    window: null
+    documented: false
+    note: >-
+      Once a day's export has been written to the customer's bucket, Kangarootime has
+      no recall, purge or revoke path - the data is in storage Kangarootime does not
+      control. Deletion is entirely the customer's own bucket operation. With the
+      default blank Path the next day's run OVERWRITES the previous file, so the prior
+      day's extract is unrecoverable from the destination unless the customer enabled
+      object versioning or templated a date into the path. The guide states the
+      overwrite behaviour but states no retention, no recovery step and no window.
+  - action: Disable a Data Feed (Enabled toggle OFF)
+    reversal_operation: re-enable
+    window: null
+    documented: true
+    note: >-
+      The Enabled toggle is documented as reversible in both directions. It stops
+      future exports; it does nothing to data already delivered.
+  never_asserted: >-
+    No reversal window is claimed anywhere in this file. The vendor documents none,
+    and inventing one for a childrens-data export would be the most expensive possible
+    error in this artifact.
+cross_references:
+  data_model: data-model/kangarootime-data-model.yml
+  lifecycle: lifecycle/kangarootime-lifecycle.yml
+  rate_limits: rate-limits/kangarootime-rate-limits.yml
+  conformance: conformance/kangarootime-conformance.yml
+x-evidence:
+  fetched: '2026-08-23'
+  guide_article_id: '45717303390356'
+  guide_created: '2026-01-27'
+  guide_updated: '2026-02-17'
+  zendesk_api_http_status: 200

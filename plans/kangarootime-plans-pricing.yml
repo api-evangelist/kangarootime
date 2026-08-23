@@ -1,0 +1,30 @@
+generated: '2026-08-23'
+method: searched
+source: https://kangarootime.com/
+plan_count: 0
+pricing_model: contact-sales
+public_pricing: false
+note: >-
+  Kangarootime publishes no pricing. There is no /pricing page (HTTP 404) and no
+  pricing URL anywhere in the site's own sitemap (311 URLs walked across
+  post-sitemap.xml, page-sitemap.xml and category-sitemap.xml). Every commercial path
+  on the site funnels to a demo request or a sales contact form
+  (https://kangarootime.com/contact, /contact-a-sales-rep-50-promo,
+  /thank-you-for-contacting-us). Third-party software directories list Kangarootime
+  with quote-based pricing rather than published rates; those are resellers of the
+  claim, not the provider, so no figure is recorded here. plan_count is 0 as a
+  measured fact, not as a gap in this pass.
+plans: []
+api_pricing:
+  applicable: false
+  note: >-
+    No API is sold, metered or rate-carded, because no public API exists. Data Feeds
+    is a platform feature configured in-app rather than a separately priced product,
+    and the guide names no cost, quota or tier.
+evidence:
+- {url: 'https://kangarootime.com/pricing', status: 404}
+- {url: 'https://kangarootime.com/contact', status: 200}
+- {url: 'https://kangarootime.com/sitemap.xml', status: 200, note: 'sitemap index; no pricing URL in any child sitemap'}
+x-evidence:
+  fetched: '2026-08-23'
+  sitemap_urls_walked: 311

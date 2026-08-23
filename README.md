@@ -64,5 +64,26 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kangarootime is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Kangarootime is a cloud-based childcare and early-education management platform for
+single-site and multi-location centers, franchises and after-school programs. The
+product covers enrollment and lead management, family and staff records, classroom and
+rooming, attendance and check-in/out kiosks, curriculum and lesson planning, parent
+communication, tuition billing, subsidy administration and integrated payment
+processing, plus reporting dashboards (Insights) and an educator training LMS.
+
+**Kangarootime publishes no public API.** There is no REST, GraphQL, SOAP, gRPC or
+AsyncAPI contract, no webhooks, no SDKs in any package registry, and no developer
+portal — `api.`, `developer.` and `docs.` subdomains do not resolve. Its only
+originating integration surface is **Data Feeds**: a configurable daily bulk export of
+the platform's 63-table dimensional warehouse schema to a customer-owned AWS S3, Azure
+Blob or Google Cloud Storage bucket, in CSV, JSON/NDJSON, Parquet or XLSX. The table
+and domain-model reference for that feed is published openly at
+<https://data-feed.kangarootime.com/>. Kangarootime's other integrations —
+KinderConnect, Kisi, Intellikid Systems, Worldpay/Payrix — are inbound: it consumes
+partner APIs rather than exposing its own.
+
+- Website: <https://kangarootime.com/>
+- Help centre: <https://help.kangarootime.com/hc/en-us>
+- Release notes: <https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes>
+- Status: <https://status.kangarootime.com/>
+- Data Feed schema reference: <https://data-feed.kangarootime.com/>

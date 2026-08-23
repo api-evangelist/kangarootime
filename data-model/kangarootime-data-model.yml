@@ -1,0 +1,155 @@
+generated: '2026-08-23'
+method: searched
+source: https://data-feed.kangarootime.com/
+docs: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+note: >-
+  Kangarootime publishes no OpenAPI, so this entity model is NOT derived from a
+  contract. It is read from the vendor's own public "Kangarootime Data Feed - Table
+  schema and domain model reference", served openly and without credentials at
+  data-feed.kangarootime.com. That reference is the closest thing Kangarootime
+  publishes to a machine-readable description of its domain, and it is the schema a
+  customer's BI platform actually binds to.
+delivery_model: bulk-export
+delivery_note: >-
+  This is a warehouse feed, not an API. Kangarootime pushes files to storage the
+  CUSTOMER owns; nothing here is a callable endpoint and no Kangarootime host accepts
+  a query. See conventions/kangarootime-conventions.yml for the delivery contract.
+snapshot:
+  version_path: /20260814013516/
+  version_note: >-
+    The reference is published under a timestamped path, 20260814013516, i.e. a
+    2026-08-14 build. The root https://data-feed.kangarootime.com/ is a meta-refresh
+    redirect to the current build, so the version is discoverable but not negotiable -
+    there is no index of prior builds and no stable "latest" alias other than the root.
+  http_status: 200
+schema_style: dimensional (Kimball star schema)
+naming_convention:
+  dim_: dimension table - descriptive entity
+  fct_: fact table - measurable event or transaction
+  brg_: bridge table - many-to-many association
+  dim_slicer_: filter/slicer helper dimension for BI tools
+table_count: 63
+table_counts_by_type:
+  dimension: 36
+  fact: 18
+  bridge: 9
+coverage_limit: >-
+  Table names and their type classification are recorded. Per-column detail (column
+  names, data types, nullability, key roles) was NOT harvested: the individual table
+  pages describe records about children and families, and crawling them was out of
+  scope for this pass. Column counts are published per table on the reference index
+  for anyone who needs them. Treat this artifact as an inventory of the domain, not
+  as a column-level dictionary.
+data_sensitivity:
+  classification: high
+  subjects: [children, parents/guardians, staff]
+  note: >-
+    The feed carries identified records about minors (dim_student,
+    dim_application_student, enrollment and attendance facts) together with
+    guardian/account contacts and staff employment history. A customer configuring a
+    Data Feed is exporting children's records into their own cloud bucket and assumes
+    the controller obligations that come with it. Kangarootime publishes no data
+    processing addendum, retention statement or field-level sensitivity classification
+    alongside the schema reference.
+domains:
+- name: Organisation and sites
+  tables: [dim_business, dim_business_unit, dim_customer, dim_customer_contact, dim_school,
+    dim_school_age_band, dim_school_tag, dim_royalty_setting]
+- name: Children and applications
+  tables: [dim_student, dim_student_tag, dim_application_student]
+- name: Accounts, billing and payments
+  tables: [dim_account, dim_account_contact, dim_account_tag, dim_adjustment, dim_fee,
+    dim_gl_code, dim_promo_code, dim_transaction_group, dim_transaction_origin,
+    dim_transaction_type, fct_accounts_receivable, fct_bill, fct_transaction]
+- name: Subsidy and agency funding
+  tables: [dim_agency, fct_agency_payment, fct_session_subsidy_non_conformed]
+- name: Programs, classes and registration
+  tables: [dim_class, dim_program, dim_program_group, dim_registration_group,
+    dim_registration_term, fct_class_fee, fct_class_schedule]
+- name: Enrollment
+  tables: [fct_enrollment, fct_enrollment_schedule, fct_prospective_enrollment,
+    fct_prospective_enrollment_payment, fct_per_diem_booking_schedule]
+- name: Staff and workforce
+  tables: [dim_staff, dim_staff_tag, dim_role, fct_staff_availability,
+    fct_staff_employment_history, fct_staff_position, fct_employee_shift_non_conformed]
+- name: Attendance and time
+  tables: [fct_session_time_entry_non_conformed]
+- name: Experience and survey
+  tables: [fct_program_experience_survey]
+- name: Conformed date/time dimensions
+  tables: [dim_date, dim_time]
+- name: BI slicer dimensions
+  tables: [dim_slicer_application_student, dim_slicer_class, dim_slicer_customer,
+    dim_slicer_program]
+- name: Bridge (many-to-many) tables
+  tables: [brg_account_to_account_tag, brg_customer_to_school, brg_date_type_to_transaction,
+    brg_enrollment_schedule_to_agency, brg_school_to_school_tag, brg_staff_to_staff_tag,
+    brg_stage_to_prospective_enrollment, brg_student_to_account, brg_student_to_student_tag]
+relationships:
+- from: customer
+  to: school
+  cardinality: has_many
+  via: brg_customer_to_school
+  evidence: >-
+    Vendor description on the reference index - "customer is at the business unit
+    level with multiple associated schools".
+- from: student
+  to: account
+  cardinality: has_many
+  via: brg_student_to_account
+  evidence: bridge table brg_student_to_account
+- from: enrollment_schedule
+  to: agency
+  cardinality: has_many
+  via: brg_enrollment_schedule_to_agency
+  evidence: bridge table brg_enrollment_schedule_to_agency
+- from: prospective_enrollment
+  to: stage
+  cardinality: has_many
+  via: brg_stage_to_prospective_enrollment
+  evidence: bridge table brg_stage_to_prospective_enrollment
+- from: account
+  to: account_tag
+  cardinality: has_many
+  via: brg_account_to_account_tag
+  evidence: >-
+    Vendor description on the reference index - "This bridge table allows the
+    connection of accounts to account tags".
+- from: school
+  to: school_tag
+  cardinality: has_many
+  via: brg_school_to_school_tag
+  evidence: bridge table brg_school_to_school_tag
+- from: staff
+  to: staff_tag
+  cardinality: has_many
+  via: brg_staff_to_staff_tag
+  evidence: bridge table brg_staff_to_staff_tag
+- from: student
+  to: student_tag
+  cardinality: has_many
+  via: brg_student_to_student_tag
+  evidence: bridge table brg_student_to_student_tag
+- from: transaction
+  to: date_type
+  cardinality: has_many
+  via: brg_date_type_to_transaction
+  evidence: >-
+    Vendor description on the reference index - "connection of date types to
+    transactions and dates".
+observations:
+- >-
+  Four tables carry a `_non_conformed` suffix (fct_employee_shift_non_conformed,
+  fct_session_subsidy_non_conformed, fct_session_time_entry_non_conformed) - the
+  vendor is signalling, in the schema itself, that these facts are not conformed to
+  the shared dimensions. A consumer joining them to dim_date or dim_staff should not
+  assume the usual grain holds.
+- >-
+  There is no dim_user / dim_login and no audit or event fact table. The feed
+  describes business state, not system activity, so it cannot answer who changed what.
+x-evidence:
+  fetched: '2026-08-23'
+  index_url: https://data-feed.kangarootime.com/20260814013516/index.html
+  index_http_status: 200
+  index_bytes: 64266
+  root_http_status: 200

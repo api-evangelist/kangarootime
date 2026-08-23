@@ -1,17 +1,38 @@
 aid: kangarootime
 name: Kangarootime
-description: 'Kangarootime is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Kangarootime is a cloud-based childcare and early-education management
+  platform for single-site and multi-location centers, franchises and after-school
+  programs. The product covers enrollment and lead management, family and staff records,
+  classroom and rooming, attendance and check-in/out kiosks, curriculum and lesson
+  planning, parent communication, tuition billing, subsidy administration and integrated
+  payment processing, plus reporting dashboards (Insights) and an educator training
+  LMS. Kangarootime publishes no public REST, GraphQL or SOAP API and runs no developer
+  program; its customer-facing data integration surface is "Data Feeds", a configurable
+  daily bulk export of the platform''s 63-table dimensional warehouse schema to a customer-owned
+  AWS S3, Azure Blob or Google Cloud Storage bucket in CSV, JSON/NDJSON, Parquet or
+  XLSX, with the table and domain-model reference published openly at data-feed.kangarootime.com.'
 url: https://raw.githubusercontent.com/api-evangelist/kangarootime/refs/heads/main/apis.yml
+image: https://kangarootime.com/wp-content/uploads/2023/03/kangarootime_vector_color_logo.svg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-23'
 modified: '2026-08-23'
 tags:
 - Company
+- Childcare
+- Early Childhood Education
+- Education
+- Child Care Management
+- Enrollment
+- Billing
+- Payments
+- Attendance
+- Parent Communication
+- Staff Management
+- Business Intelligence
+- Data Feeds
+- SaaS
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +41,77 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://kangarootime.com/
+- type: Documentation
+  url: https://help.kangarootime.com/hc/en-us
+- type: Support
+  url: https://help.kangarootime.com/hc/en-us
+- type: Blog
+  url: https://kangarootime.com/blog
+- type: StatusPage
+  url: https://status.kangarootime.com/
+- type: ChangeLog
+  url: https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes
+- type: Login
+  url: https://k2.kangarootime.com/
+- type: TermsOfService
+  url: https://kangarootime.com/kangarootime-end-user-agreement
+- type: PrivacyPolicy
+  url: https://kangarootime.com/privacy-policy
+# GitHubOrganization: github.com/kangarootime1 is attributed to this company on the
+# basis of (a) the handle matching their official X/Twitter account @kangarootime1
+# and (b) a domain-specific repo, move_child_to_room_alexa-skill ("move child/children
+# from one room to other room"), matching Kangarootime's rooming feature. The org
+# publishes no name, description, blog or email of its own, so the attribution is
+# inferred rather than declared. It holds 8 repos (7 Ruby/JS forks + splash_payments),
+# no SDKs and no API specifications.
+- type: GitHubOrganization
+  url: https://github.com/kangarootime1
+- type: DataModel
+  url: data-model/kangarootime-data-model.yml
+- type: ChangeLog
+  name: Kangarootime release notes (harvested)
+  url: changelog/kangarootime-changelog.yml
+- type: Lifecycle
+  url: lifecycle/kangarootime-lifecycle.yml
+- type: Conventions
+  url: conventions/kangarootime-conventions.yml
+- type: Conformance
+  url: conformance/kangarootime-conformance.yml
+- type: DomainSecurity
+  url: security/kangarootime-domain-security.yml
+- type: Plans
+  url: plans/kangarootime-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/kangarootime-rate-limits.yml
+- type: LLMsTxt
+  url: llms/kangarootime-llms.txt
+- type: Integrations
+  url: integrations/_index.yml
+x-enrichment:
+  date: '2026-08-23'
+  status: minimal
+  artifacts_added: 13
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    Kangarootime runs no developer program at all - api., developer. and docs.
+    subdomains are NXDOMAIN, the 311-URL sitemap contains no developer or API page,
+    the help centre returns zero articles for "webhook", and six package registries
+    return zero results; its only originating integration surface is Data Feeds, a
+    daily bulk file export to a customer-owned S3/Azure/GCS bucket configured inside
+    the app rather than any callable API.
+  evidence:
+  - url: https://kangarootime.com/openapi.json
+    status: 404
+  - url: https://kangarootime.com/.well-known/api-catalog
+    status: 404
+  - url: https://kangarootime.com/pricing
+    status: 404
+  - url: https://data-feed.kangarootime.com/
+    status: 200
+  - url: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+    status: 200
+  checked: '2026-08-23'

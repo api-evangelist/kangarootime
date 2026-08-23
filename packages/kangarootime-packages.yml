@@ -1,0 +1,36 @@
+generated: '2026-08-23'
+method: searched
+source: public package registry searches, 2026-08-23
+package_count: 0
+official_package_count: 0
+note: >-
+  No first-party client library exists in any public registry. Kangarootime ships no
+  SDK, and there is no API for one to wrap. Recorded as "checked, nothing found" - not
+  as "not checked". No `Packages` or `SDKs` pointer is wired in apis.yml, because the
+  provider publishes none.
+packages: []
+registries_searched:
+- {registry: npm, query: kangarootime, endpoint: 'https://registry.npmjs.org/-/v1/search?text=kangarootime', results: 0}
+- {registry: pypi, query: kangarootime, endpoint: 'https://pypi.org/pypi/kangarootime/json', http_status: 404, results: 0}
+- {registry: rubygems, query: kangarootime, endpoint: 'https://rubygems.org/api/v1/search.json?query=kangarootime', results: 0}
+- {registry: crates.io, query: kangarootime, endpoint: 'https://crates.io/api/v1/crates?q=kangarootime', results: 0}
+- {registry: packagist, query: kangarootime, endpoint: 'https://packagist.org/search.json?q=kangarootime', results: 0}
+- {registry: nuget, query: kangarootime, endpoint: 'https://azuresearch-usnc.nuget.org/query?q=kangarootime', results: 0}
+source_repositories:
+  github_org: https://github.com/kangarootime1
+  public_repos: 8
+  first_party_non_fork: 1
+  note: >-
+    The GitHub org holds 7 forks of third-party Ruby/JavaScript libraries (mailboxer,
+    ice_cube, paper_trail-globalid, breadcrumbs_on_rails,
+    react-native-hide-show-password-input, hexagonal-grid,
+    move_child_to_room_alexa-skill) and one non-fork, splash_payments (Ruby, last
+    pushed 2021-10-01, no description, no licence, 0 stars). None is a Kangarootime
+    client SDK and none is published to a registry. The forks indicate the K1 platform
+    is a Ruby on Rails application; they are not distributable artifacts of
+    Kangarootime's own.
+  last_activity: '2023-12-17'
+x-evidence:
+  fetched: '2026-08-23'
+  registries_checked: 6
+  packages_found: 0

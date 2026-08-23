@@ -1,0 +1,54 @@
+generated: '2026-08-23'
+method: searched
+source: https://status.kangarootime.com/
+note: >-
+  Kangarootime publishes no API, so there is no API versioning scheme, no deprecation
+  policy, no Sunset/Deprecation header contract and no deprecated operations to
+  derive. What it does publish is an application status page and a dated release-notes
+  stream. Both are recorded here; the absent fields are recorded as absent rather
+  than omitted, so a reader can tell "checked, not published" from "not checked".
+versioning:
+  scheme: none-published
+  current: null
+  docs: null
+  note: >-
+    Releases are identified by date in the help-centre release notes; no product or
+    API version number is published.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: No deprecation or sunset policy is published on any Kangarootime surface.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime target. Service commitments, if any, sit inside the
+    Customer License Agreement (https://kangarootime.com/kangarootime-customer-license-agreement)
+    rather than on a public SLA page.
+status_page:
+  url: https://status.kangarootime.com/
+  http_status: 200
+  platform: self-hosted single-page app (title "Kangarootime Status", branded from k2.kangarootime.com assets)
+  machine_readable: false
+  probed_endpoints:
+  - {path: /api/status, status: 404}
+  - {path: /api/v1/status, status: 404}
+  - {path: /status.json, status: 404}
+  - {path: /api/services, status: 404}
+  - {path: /summary.json, status: 404}
+  - {path: /index.json, status: 404}
+  note: >-
+    The status page renders client-side; the served HTML is a shell carrying a
+    window.config block and no incident data. Every conventional status JSON endpoint
+    probed returns 404 ("Cannot GET ..."), so there is no machine-readable status feed
+    an agent or monitor could subscribe to.
+changelog:
+  url: https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes
+  artifact: changelog/kangarootime-changelog.yml
+  latest_entry: '2026-07-22'
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-08-23'
+  status_page_http_status: 200
+  status_page_bytes: 2090

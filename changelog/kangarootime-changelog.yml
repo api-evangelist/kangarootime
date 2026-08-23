@@ -1,0 +1,108 @@
+generated: '2026-08-23'
+method: searched
+source: https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes
+note: >-
+  Kangarootime publishes dated product release notes as a section of its Zendesk help
+  centre. Entry titles and dates below were read from the Zendesk Help Center API
+  (https://kangarootimehelpk2.zendesk.com/api/v2/help_center/en-us/sections/42065337030932/articles.json),
+  which answers anonymously; the rendered help-centre pages themselves sit behind a
+  Cloudflare bot challenge and return 403 to a crawler. Entries are product-wide
+  release notes for the end-user application - there is no API changelog, because
+  there is no public API. `date` is the Zendesk article creation date; the title
+  carries the release date the vendor announced.
+scheme: dated-release-notes
+versioning: none-published
+cadence: roughly every 2-4 weeks
+current_version: null
+current_version_note: >-
+  Kangarootime does not publish a product version number alongside its release notes;
+  releases are identified by date only.
+entries_source: zendesk-help-center-api
+entry_count: 16
+window: 2025-10-10 to 2026-07-22
+latest_entry: '2026-07-22'
+entries:
+- release: '2026-07-22'
+  date: '2026-07-14'
+  title: 'Kangarootime Release Notes: 7/22/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/51308640832148-Kangarootime-Release-Notes-7-22-2026
+- release: '2026-07-01'
+  date: '2026-06-29'
+  title: 'Kangarootime Release Notes: 7/1/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/50816607833364-Kangarootime-Release-Notes-7-1-2026
+- release: '2026-06-17'
+  date: '2026-06-16'
+  title: 'Kangarootime Release Notes: 6/17/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/50358213224724-Kangarootime-Release-Notes-6-17-2026
+- release: '2026-05-20'
+  date: '2026-05-18'
+  title: 'Kangarootime Release Notes: 5/20/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/49380447680532-Kangarootime-Release-Notes-5-20-2026
+- release: '2026-05-05'
+  date: '2026-05-04'
+  title: 'Kangarootime Release Notes: 5/5/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/48902488563604-Kangarootime-Release-Notes-5-5-2026
+- release: '2026-04-21'
+  date: '2026-04-20'
+  title: 'Kangarootime Release Notes: 4/21/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/48411994764308-Kangarootime-Release-Notes-4-21-2026
+- release: '2026-03-24'
+  date: '2026-03-23'
+  title: 'Kangarootime Release Notes: 3/24/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/47494475191060-Kangarootime-Release-Notes-3-24-2026
+- release: '2026-03-17'
+  date: '2026-03-17'
+  title: 'Kangarootime Release Notes: 3/17/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/47285767331476-Kangarootime-Release-Notes-3-17-2026
+- release: '2026-02-18'
+  date: '2026-02-17'
+  title: 'Kangarootime Release Notes: 2/18/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/46383649008788-Kangarootime-Release-Notes-2-18-2026
+- release: '2026-02-09'
+  date: '2026-02-04'
+  title: 'Kangarootime Release Notes: 2/9/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/45982423541396-Kangarootime-Release-Notes-2-9-2026
+- release: '2026-01-21'
+  date: '2026-01-21'
+  title: 'Kangarootime Release Notes: 1/21/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/45503460392852-Kangarootime-Release-Notes-1-21-2026
+- release: '2026-01-07'
+  date: '2026-01-07'
+  title: 'Kangarootime Release Notes: 1/7/2026'
+  url: https://help.kangarootime.com/hc/en-us/articles/45029558856340-Kangarootime-Release-Notes-1-7-2026
+- release: '2025-12-10'
+  date: '2025-12-10'
+  title: 'Kangarootime Release Notes: 12/10/2025'
+  url: https://help.kangarootime.com/hc/en-us/articles/44213279620628-Kangarootime-Release-Notes-12-10-2025
+- release: '2025-11-19'
+  date: '2025-11-19'
+  title: 'Kangarootime Release Notes: 11/19/2025'
+  url: https://help.kangarootime.com/hc/en-us/articles/43518079799828-Kangarootime-Release-Notes-11-19-2025
+- release: '2025-10-14'
+  date: '2025-10-13'
+  title: 'Kangarootime Release Notes: 10/14/2025'
+  url: https://help.kangarootime.com/hc/en-us/articles/42133632279700-Kangarootime-Release-Notes-10-14-2025
+- release: '2025-10-10'
+  date: '2025-10-10'
+  title: 'Kangarootime Release Notes: 10/10/2025'
+  url: https://help.kangarootime.com/hc/en-us/articles/42066637260052-Kangarootime-Release-Notes-10-10-2025
+secondary_surface:
+  name: Kangarootime news (Headway)
+  url: https://changelog.kangarootime.com/
+  platform: headwayapp.co
+  status: stale
+  last_entry: '2023-09-12'
+  http_status: 200
+  note: >-
+    A second, separately branded changelog runs on Headway at
+    changelog.kangarootime.com. It is still served (HTTP 200) but its most recent
+    dated entry is 2023-09-12; the entries are customer-support and incident notices
+    rather than product releases. Recorded as an observed decay signal - a live URL
+    a reader would reasonably mistake for the current changelog. The maintained
+    surface is the Zendesk Release Notes section above.
+x-evidence:
+  fetched: '2026-08-23'
+  release_notes_section_http_status: 403
+  release_notes_section_note: Cloudflare bot challenge ("Just a moment...") to a crawler; section proven live via the anonymous Zendesk Help Center API returning 16 articles.
+  zendesk_api_http_status: 200
+  headway_http_status: 200

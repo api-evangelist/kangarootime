@@ -1,0 +1,87 @@
+generated: '2026-08-23'
+method: searched
+source: https://help.kangarootime.com/hc/en-us/categories/36783972715412-Business
+note: >-
+  Listing-only catalog. Every entry carries `arazzo: null` because no forkable workflow
+  can be authored - Arazzo requires verified operationIds on both sides, and
+  Kangarootime publishes no OpenAPI at all. Nothing here is fabricated into a workflow.
+  The direction field is the important finding: Kangarootime's integration surface is
+  almost entirely INBOUND - it consumes partner APIs and partner-supplied credentials
+  rather than exposing its own. The single outbound surface, Data Feeds, is a file push
+  to storage the customer owns, not a callable API.
+integration_count: 5
+inbound_count: 4
+outbound_count: 1
+integrations:
+- slug: kangarootime-kinderconnect
+  label: KinderConnect
+  partner: KinderConnect (Controltec)
+  category: subsidy-attendance
+  direction: inbound
+  use_case: >-
+    Sync attendance and school records with the state child-care subsidy attendance
+    system for subsidy reimbursement, including digital signature and photo
+    check-in/out requirements, plus a manual data-upload fallback.
+  docs: https://help.kangarootime.com/hc/en-us/articles/34404754369684-KinderConnect-Integration-Overview
+  arazzo: null
+  status: pending-partner-spec
+  note: 5 help-centre articles including a dedicated troubleshooting guide; the most substantial partner integration Kangarootime documents.
+- slug: kangarootime-kisi
+  label: Kisi 2.0
+  partner: Kisi
+  category: access-control
+  direction: inbound
+  use_case: >-
+    Door access control tied to childcare records - Kangarootime calls Kisi using a
+    Kisi-issued API key that the customer creates in Kisi and pastes into Kangarootime.
+  docs: https://help.kangarootime.com/hc/en-us/articles/12773958036244-Kisi-2-0-Configuration
+  arazzo: null
+  status: pending-partner-spec
+  note: >-
+    Kisi's own marketplace documentation confirms the credential flows Kisi -> Kangarootime
+    and describes it as "a partner-built integration, maintained and supported by the
+    partner". Kangarootime issues no API key of its own here.
+- slug: kangarootime-intellikid
+  label: Intellikid Systems
+  partner: Intellikid Systems
+  category: crm-lead-management
+  direction: inbound
+  use_case: Childcare CRM and lead-management sync for enrollment pipelines.
+  docs: https://help.kangarootime.com/hc/en-us/articles/37640716049684-Intellikid-Systems
+  arazzo: null
+  status: pending-partner-spec
+- slug: kangarootime-worldpay-payrix
+  label: Worldpay for Platforms (Payrix)
+  partner: Worldpay / Payrix
+  category: payments
+  direction: inbound
+  use_case: Embedded tuition and fee payment processing, card and ACH.
+  docs: null
+  arazzo: null
+  status: pending-partner-spec
+  note: >-
+    Not documented in the help centre as an integration article, but evidenced by
+    infrastructure - payrix.kangarootime.com returns HTTP 200 serving Worldpay content,
+    and payrixapi./test-payrixapi./test-payrix. hostnames appear in certificate
+    transparency logs for kangarootime.com.
+- slug: kangarootime-data-feeds
+  label: Data Feeds
+  partner: null
+  category: data-export
+  direction: outbound
+  use_case: >-
+    Daily bulk export of the 63-table warehouse schema to a customer-owned AWS S3,
+    Azure Blob or Google Cloud Storage bucket, in CSV, JSON/NDJSON, Parquet or XLSX,
+    for ingestion by Tableau, Power BI, Looker or a custom warehouse.
+  docs: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+  schema_reference: https://data-feed.kangarootime.com/
+  arazzo: null
+  status: not-an-api
+  note: >-
+    The only surface Kangarootime originates. Captured in full in
+    conventions/kangarootime-conventions.yml (delivery contract) and
+    data-model/kangarootime-data-model.yml (schema).
+x-evidence:
+  fetched: '2026-08-23'
+  help_center_integration_sections: 2
+  help_center_integration_articles: 8

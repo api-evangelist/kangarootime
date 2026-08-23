@@ -1,0 +1,32 @@
+generated: '2026-08-23'
+method: searched
+source: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+limit_count: 0
+note: >-
+  No rate limits are published, and there is no API surface for one to apply to.
+  Kangarootime exposes no public REST/GraphQL endpoint, so there are no per-key,
+  per-account or per-endpoint quotas, no X-RateLimit-*/RateLimit-* response headers, no
+  Retry-After contract and no documented 429 behaviour. limit_count is 0 as a measured
+  fact. The one throughput constraint the vendor does document is the Data Feed export
+  cadence, recorded below as a schedule rather than as a rate limit.
+limits: []
+headers: []
+exhaustion_status_code: null
+throughput_constraints:
+- surface: Data Feeds bulk export
+  type: schedule
+  cadence: daily
+  configurable: false
+  documented: true
+  note: >-
+    The Data Feed User Guide states exports run daily. It documents no on-demand
+    trigger, no backfill request, no concurrency limit and no maximum row/file size,
+    other than warning that the XLSX output format has row limitations for large
+    datasets and recommending CSV or Parquet instead.
+  source: https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide
+evidence:
+- {url: 'https://help.kangarootime.com/hc/en-us/articles/45717303390356-Kangarootime-Data-Feed-User-Guide', status: 200, note: 'read via anonymous Zendesk Help Center API; rendered page is behind a Cloudflare bot challenge'}
+x-evidence:
+  fetched: '2026-08-23'
+  help_center_webhook_articles: 0
+  help_center_api_articles: 2

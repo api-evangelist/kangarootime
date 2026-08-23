@@ -1,0 +1,116 @@
+generated: '2026-08-23'
+method: probed
+source: live probes of every Kangarootime host, 2026-08-23
+hit_count: 0
+note: >-
+  Zero documents. Every /.well-known/ path was probed on every Kangarootime host and
+  nothing real is served. Three hosts (k2, insights, and www at the marketing site)
+  answer 200 or a styled 404 for ANY path, so a naive probe would read them as hits -
+  each was controlled with a known-bad path
+  (/.well-known/THIS-PATH-DOES-NOT-EXIST-CONTROL) and returned a byte-identical body,
+  proving a catch-all rather than a document. NO WellKnown, SecurityTxt, APICatalog or
+  AgentCard pointer is wired in apis.yml, because the provider serves none of these
+  surfaces. This file records the absence, which is valid data.
+soft_404_control:
+  method: >-
+    Each host was additionally requested at /.well-known/THIS-PATH-DOES-NOT-EXIST-CONTROL.
+    Where the control returns the same status and byte count as the real paths, the host
+    is a catch-all and every 200 on it is discounted.
+  results:
+  - {host: k2.kangarootime.com, control_status: 200, control_bytes: 2927, verdict: spa-catch-all}
+  - {host: insights.kangarootime.com, control_status: 200, control_bytes: 50501, verdict: spa-catch-all}
+  - {host: kangarootime.com, control_status: 404, control_bytes: 157144, verdict: styled-wordpress-404}
+  - {host: educator.kangarootime.com, control_status: 404, control_bytes: 9917, verdict: nextjs-404}
+  - {host: status.kangarootime.com, control_status: 404, control_bytes: 56, verdict: honest-404}
+  - {host: changelog.kangarootime.com, control_status: 404, control_bytes: 9, verdict: honest-404}
+  - {host: help.kangarootime.com, control_status: 404, control_bytes: 8735, verdict: zendesk-404}
+  - {host: data-feed.kangarootime.com, control_status: 403, control_bytes: 243, verdict: s3-access-denied}
+hosts:
+- host: https://kangarootime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://k2.kangarootime.com
+  note: SPA catch-all - every path returns 200 with an identical 2927-byte shell. All 200s below are discounted as non-documents.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, soft_404: true}
+  - {path: /.well-known/openid-configuration, status: 200, soft_404: true}
+  - {path: /.well-known/oauth-authorization-server, status: 200, soft_404: true}
+  - {path: /.well-known/oauth-protected-resource, status: 200, soft_404: true}
+  - {path: /.well-known/api-catalog, status: 200, soft_404: true}
+  - {path: /.well-known/ai-plugin.json, status: 200, soft_404: true}
+  - {path: /.well-known/agent-card.json, status: 200, soft_404: true}
+  - {path: /.well-known/agent.json, status: 200, soft_404: true}
+- host: https://insights.kangarootime.com
+  note: SPA catch-all - every path returns 200 with an identical 50501-byte shell. All 200s below are discounted as non-documents.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, soft_404: true}
+  - {path: /.well-known/openid-configuration, status: 200, soft_404: true}
+  - {path: /.well-known/oauth-authorization-server, status: 200, soft_404: true}
+  - {path: /.well-known/oauth-protected-resource, status: 200, soft_404: true}
+  - {path: /.well-known/api-catalog, status: 200, soft_404: true}
+  - {path: /.well-known/ai-plugin.json, status: 200, soft_404: true}
+  - {path: /.well-known/agent-card.json, status: 200, soft_404: true}
+  - {path: /.well-known/agent.json, status: 200, soft_404: true}
+- host: https://educator.kangarootime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://status.kangarootime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://changelog.kangarootime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://data-feed.kangarootime.com
+  note: S3-backed static host; returns 403 AccessDenied for any unmapped key.
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/oauth-protected-resource, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+- host: https://help.kangarootime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+x-evidence:
+  fetched: '2026-08-23'
+  hosts_probed: 8
+  paths_per_host: 8
+  real_documents_found: 0
