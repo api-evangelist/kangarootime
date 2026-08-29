@@ -12,6 +12,17 @@ description: 'Kangarootime is a cloud-based childcare and early-education manage
   AWS S3, Azure Blob or Google Cloud Storage bucket in CSV, JSON/NDJSON, Parquet or
   XLSX, with the table and domain-model reference published openly at data-feed.kangarootime.com.'
 url: https://raw.githubusercontent.com/api-evangelist/kangarootime/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kangarootime.com/wp-content/uploads/2023/03/kangarootime_vector_color_logo.svg
 x-type: company
 x-source: harvest:secondary-market
