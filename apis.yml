@@ -41,7 +41,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.20'
 created: '2026-08-23'
-modified: '2026-08-23'
+modified: '2026-10-06'
 tags:
 - Company
 - Childcare
@@ -79,6 +79,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://kangarootime.com/blog/feed
+  type: BlogRSS
 - type: Website
   url: https://kangarootime.com/
 - type: Documentation
