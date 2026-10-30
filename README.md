@@ -64,26 +64,99 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kangarootime is a cloud-based childcare and early-education management platform for
-single-site and multi-location centers, franchises and after-school programs. The
-product covers enrollment and lead management, family and staff records, classroom and
-rooming, attendance and check-in/out kiosks, curriculum and lesson planning, parent
-communication, tuition billing, subsidy administration and integrated payment
-processing, plus reporting dashboards (Insights) and an educator training LMS.
+Kangarootime is a cloud-based childcare and early-education management platform for single-site and multi-location centers, franchises and after-school programs. The product covers enrollment and lead management, family and staff records, classroom and rooming, attendance and check-in/out kiosks, curriculum and lesson planning, parent communication, tuition billing, subsidy administration and integrated payment processing, plus reporting dashboards (Insights) and an educator training LMS. Kangarootime publishes no public REST, GraphQL or SOAP API and runs no developer program; its customer-facing data integration surface is "Data Feeds", a configurable daily bulk export of the platform's 63-table dimensional warehouse schema to a customer-owned AWS S3, Azure Blob or Google Cloud Storage bucket in CSV, JSON/NDJSON, Parquet or XLSX, with the table and domain-model reference published openly at data-feed.kangarootime.com.
 
-**Kangarootime publishes no public API.** There is no REST, GraphQL, SOAP, gRPC or
-AsyncAPI contract, no webhooks, no SDKs in any package registry, and no developer
-portal — `api.`, `developer.` and `docs.` subdomains do not resolve. Its only
-originating integration surface is **Data Feeds**: a configurable daily bulk export of
-the platform's 63-table dimensional warehouse schema to a customer-owned AWS S3, Azure
-Blob or Google Cloud Storage bucket, in CSV, JSON/NDJSON, Parquet or XLSX. The table
-and domain-model reference for that feed is published openly at
-<https://data-feed.kangarootime.com/>. Kangarootime's other integrations —
-KinderConnect, Kisi, Intellikid Systems, Worldpay/Payrix — are inbound: it consumes
-partner APIs rather than exposing its own.
+**Areas:** Company · Childcare · Early Childhood Education · Education · Child Care Management · Enrollment · Billing · Payments · Attendance · Parent Communication · Staff Management · Business Intelligence
 
-- Website: <https://kangarootime.com/>
-- Help centre: <https://help.kangarootime.com/hc/en-us>
-- Release notes: <https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes>
-- Status: <https://status.kangarootime.com/>
-- Data Feed schema reference: <https://data-feed.kangarootime.com/>
+## Kangarootime on APIs.io
+
+Everything profiled for Kangarootime is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kangarootime/](https://apis.io/providers/kangarootime/)** — or go straight to one of the APIs or properties below.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kangarootime Domain Security](https://apis.io/security/kangarootime/kangarootime-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kangarootime Plans Pricing](https://apis.io/plans/kangarootime/kangarootime-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kangarootime Rate Limits](https://apis.io/rate-limits/kangarootime/kangarootime-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://kangarootime.com/)
+- [Documentation](https://help.kangarootime.com/hc/en-us)
+- [Support](https://help.kangarootime.com/hc/en-us)
+- [Changelog](https://help.kangarootime.com/hc/en-us/sections/42065337030932-Release-Notes)
+- [Blog](https://kangarootime.com/blog)
+- [Terms of service](https://kangarootime.com/kangarootime-end-user-agreement)
+- [Privacy policy](https://kangarootime.com/privacy-policy)
+- [GitHub](https://github.com/kangarootime1)
+- [Status](https://status.kangarootime.com/)
+
+## API Evangelist rating
+
+**Kin Score 20.7** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 55.4 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 27.6 |
+
+**Agent readiness 5.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 17.0** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kangarootime/](https://apis.io/providers/kangarootime/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kangarootime: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kangarootime/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
